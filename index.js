@@ -48,13 +48,13 @@ const onSubmit = e => {
   e.preventDefault();
   const { firstName, lastName, email, phone } = e.target.elements;
 
-  const isFirstNameValid = namelValidator(firstName.value, 1);
+  const isFirstNameValid = namelValidator(firstName.value, 2);
 
   if (!isFirstNameValid) {
     showHelperText("firstNameHelp", errorMessages.VALUE_IS_TOO_SHORT);
   }
 
-  const isLasttNameValid = namelValidator(lastName.value, 1);
+  const isLasttNameValid = namelValidator(lastName.value, 2);
   if (!isLasttNameValid) {
     showHelperText("lastNameHelp", errorMessages.VALUE_IS_TOO_SHORT);
   }
