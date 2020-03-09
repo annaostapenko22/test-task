@@ -12,7 +12,7 @@
 
 <body>
     <main>
-        <section class="info">
+        <div class="sections-wrapper"><section class="info">
             <div class="container">
                 <h2 class="info__title">We teach you. We fund you.</h2>
                 <h3 class="info__subtitle">You keep most of the profits</h3>
@@ -20,7 +20,7 @@
                     <span class="highlight-text">16,000 traders worldwide</span>
                     <span class="highlight-subtext">since 2004 & completely funded their trading accounts. You can be
                         next</span></p>
-                <img src="./images/info-section-main-img.png" class="info__img" width="300" height="188">
+                <img src="./images/info-section-main-img.png" class="info__img" >
             </div>
         </section>
         <section class="register">
@@ -31,14 +31,14 @@
                 <p></p>
                 <form action="#" class="register__form" id="testForm" novalidate>
                     <div class="input-item-container"> <span class="input-container"><input type="text" class="form-item" placeholder="First Name"
-                                id="firstName" name="firstName" required minlength="2"></span>
-                        <span id="firstNameHelp" class="helper-text"></span></div>
+                                id="firstName" name="firstName" ></span>
+                        <span id="firstNameHelp" ></span></div>
                     <div class="input-item-container"> <span class="input-container"><input type="text" class="form-item" placeholder="Last Name"
-                                id="lastName" name="lastName" required minlength="2"></span>
-                        <span id="lastNameHelp" class="helper-text"></span></div>
+                                id="lastName" name="lastName" ></span>
+                        <span id="lastNameHelp" ></span></div>
                     <div class="input-item-container"> <span class="input-container"><input type="email" class="form-item" placeholder="Email"
-                                id="email" name="email" required></span>
-                        <span id="emailHelp" class="helper-text"></span></div>
+                                id="email" name="email" ></span>
+                        <span id="emailHelp" ></span></div>
                     <div> <span class="input-container"> <select name="" id="" class="form-item select">
                                 <option value="romania" selected>Romania</option>
                                 <option value="romania">Ukraine</option>
@@ -47,12 +47,13 @@
 
                             </select></span></div>
                     <div> <span class="input-container"><input type="tel" class="form-item phone"
-                                placeholder="Phone" id="phone"></span></div>
+                                placeholder="Phone" id="phone" name="phone"></span>
+                                <span id="phoneHelp" ></span></div>
                     <button class="button--try">Try a 14-day trial period</button>
                 </form>
                 <p class="button--under-text">You will be contacted shortly by one of our trading mentors</p>
             </div>
-        </section>
+        </section></div>
         <section class="what-we-offer">
             <div class="container">
                 <h2 class="what-we-offer__title">What we offer</h2>
@@ -76,7 +77,7 @@
                         <p class="item-text">• Get access to extensive training materials, Demo Account, live practice
                             sessions & much more, everything designed for your skill level
 
-                            • All with as low as $500!</p>
+                            <span class="item-subtext">• All with as low as $500!</span></p>
                     </li>
                 </ul>
             </div>

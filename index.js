@@ -1,55 +1,75 @@
+// REFS
+
 const refs = {
-    form: document.getElementById("testForm"),
-    firstName: document.getElementById("firstName"),
-    lastName: document.getElementById("lastName"),
-    email: document.getElementById("email")
-  };
+  form: document.getElementById("testForm")
+  // firstName: document.getElementById("firstName"),
+  // lastName: document.getElementById("lastName"),
+  // email: document.getElementById("email")
+};
+
+// ENUMS
+
+const errorMessages = {
+  EMAIL_NOT_VALID: "EMAIL_NOT_VALID",
+  VALUE_IS_TOO_SHORT: "VALUE_IS_TOO_SHORT",
+  SHOULD_BE_NUMBER: "SHOULD_BE_NUMBER"
+  //  VALUE_IS_TOO_SHORT: function(value, min) {
+  // return `The ${value} is too short. Should be minimum ${min} symbols.`
+  //  },
+  //  SHOULD_BE_NUMBER: "The value should include just numbers"
+};
+
+// VALIDATORS
+
+const isEmptyValidator = value => value.trim() === "";
+
+const isNumberValidator = value => !isNaN(parseInt(value));
+
+const isEmailValidator = value => {
+  const emailRegex = /.+@.+\..+/;
+  return emailRegex.test(value);
+};
+
+const isShortValidator = (value, min) => value.length < min;
+
+const nameValidator = (value, min) =>
+  !isEmailValidator(value) && !isShortValidator(value, min);
+
+// MAIN FUNCTIONALITY
+
+const onSubmit = e => {
+  e.preventDefault();
+  console.log(e.target.elements);
+  const { firstName, lastName, email, phone } = e.target.elements;
+  console.log(firstName, lastName, email, phone);
+const isEmailValid = isEmailValidator(email)
+if(!isEmailValid) {
+  showHelperText("emailHelp", errorMessages.EMAIL_NOT_VALID)
+}
+};
+
+const showHelperText = (name, error) => {
+  const nameHelpElement = document.getElementById(name);
   
-  const onSubmit = e => {
-    e.preventDefault();
-    if(refs.firstName.validity.valid && refs.lastName.validity.valid && refs.email.validity.valid) {
-        alert("ALL THE INFO IS VALID")
-    }
-    console.log(e.target.elements.email)
-  };
-  
-  const handleInput = e => {
-    const name = e.target.value;
-    let validityMessage = `length: too short`;
-    let messageColor = "red";
-    const emailRegex = /.+@.+\..+/;
-    if (name.length >= 2) {
-      validityMessage = `length: adequate`;
-      messageColor = "green";
-    }
-    if (e.target.name === "firstName") {
-      showHelperText("firstNameHelp", messageColor, validityMessage);
-    }
-    if (e.target.name === "lastName") {
-      showHelperText("lastNameHelp", messageColor, validityMessage);
-    }
-    if (e.target.name === "email") {
-      if (!emailRegex.test(e.target.value)) {
-        validityMessage = "Invalid address";
-        messageColor = "red";
-        showHelperText("emailHelp", messageColor, validityMessage);
-      }
-      if (emailRegex.test(e.target.value)) {
-        validityMessage = "Valid address";
-        messageColor = "green";
-        showHelperText("emailHelp", messageColor, validityMessage);
-      }
-    }
-  };
-  
-  const showHelperText = (name, messageColor, nameLength) => {
-    const nameHelpElement = document.getElementById(name);
-    nameHelpElement.textContent = `${nameLength}`;
-    nameHelpElement.style.color = messageColor;
-  };
-  
-  refs.firstName.addEventListener("input", handleInput);
-  refs.lastName.addEventListener("input", handleInput);
-  refs.email.addEventListener("input", handleInput);
-  refs.form.addEventListener("submit", onSubmit);
-  
+  let errorMessage;
+  switch (error) {
+    case errorMessages.EMAIL_NOT_VALID:
+      errorMessage = "Email is not valid";
+      break;
+    case erroMessage.VALUE_IS_TOO_SHORT:
+      errorMessage = "Entered value is short";
+      break;
+    case erroMessage.SHOULD_BE_NUMBER:
+      errorMessage = "The field should contain just numbers";
+      break;
+      default:
+      errorMessage = "The field is wrong"
+  }
+  nameHelpElement.textContent = errorMessage;
+  nameHelpElement.classList.add("helper-text")
+};
+
+// refs.firstName.addEventListener("input", handleInput);
+// refs.lastName.addEventListener("input", handleInput);
+// refs.email.addEventListener("input", handleInput);
+refs.form.addEventListener("submit", onSubmit);
