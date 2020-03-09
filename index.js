@@ -1,10 +1,11 @@
 // REFS
 
 const refs = {
-  form: document.getElementById("testForm")
-  // firstName: document.getElementById("firstName"),
-  // lastName: document.getElementById("lastName"),
-  // email: document.getElementById("email")
+  form: document.getElementById("testForm"),
+  firstName: document.getElementById("firstName"),
+  lastName: document.getElementById("lastName"),
+  email: document.getElementById("email"),
+  phone: document.getElementById("phone")
 };
 
 // ENUMS
@@ -12,11 +13,7 @@ const refs = {
 const errorMessages = {
   EMAIL_NOT_VALID: "EMAIL_NOT_VALID",
   VALUE_IS_TOO_SHORT: "VALUE_IS_TOO_SHORT",
-  SHOULD_BE_NUMBER: "SHOULD_BE_NUMBER"
-  //  VALUE_IS_TOO_SHORT: function(value, min) {
-  // return `The ${value} is too short. Should be minimum ${min} symbols.`
-  //  },
-  //  SHOULD_BE_NUMBER: "The value should include just numbers"
+  PHONE_IS_NOT_VALID: "PHONE_IS_NOT_VALID"
 };
 
 // VALIDATORS
@@ -32,44 +29,77 @@ const isEmailValidator = value => {
 
 const isShortValidator = (value, min) => value.length < min;
 
-const nameValidator = (value, min) =>
-  !isEmailValidator(value) && !isShortValidator(value, min);
+const emailValidator = (value, min) =>
+  !isEmptyValidator(value) &&
+  !isEmailValidator(value) &&
+  !isShortValidator(value, min);
+
+const namelValidator = (value, min) =>
+  !isEmptyValidator(value) && !isShortValidator(value, min);
+
+const phoneValidator = (value, min) =>
+  !isEmptyValidator(value) &&
+  !isNumberValidator(value) &&
+  !isShortValidator(value, min);
 
 // MAIN FUNCTIONALITY
 
 const onSubmit = e => {
   e.preventDefault();
-  console.log(e.target.elements);
   const { firstName, lastName, email, phone } = e.target.elements;
-  console.log(firstName, lastName, email, phone);
-const isEmailValid = isEmailValidator(email)
-if(!isEmailValid) {
-  showHelperText("emailHelp", errorMessages.EMAIL_NOT_VALID)
-}
+
+  const isFirstNameValid = namelValidator(firstName.value, 1);
+
+  if (!isFirstNameValid) {
+    showHelperText("firstNameHelp", errorMessages.VALUE_IS_TOO_SHORT);
+  }
+
+  const isLasttNameValid = namelValidator(lastName.value, 1);
+  if (!isLasttNameValid) {
+    showHelperText("lastNameHelp", errorMessages.VALUE_IS_TOO_SHORT);
+  }
+
+  const isEmailValid = isEmailValidator(email.value);
+  if (email && !isEmailValid) {
+    showHelperText("emailHelp", errorMessages.EMAIL_NOT_VALID);
+  }
+
+  const isPhoneValid = phoneValidator(phone.value, 7);
+  if (!isPhoneValid) {
+    showHelperText("phoneHelp", errorMessages.PHONE_IS_NOT_VALID);
+  }
 };
 
 const showHelperText = (name, error) => {
   const nameHelpElement = document.getElementById(name);
-  
+
   let errorMessage;
   switch (error) {
     case errorMessages.EMAIL_NOT_VALID:
       errorMessage = "Email is not valid";
       break;
-    case erroMessage.VALUE_IS_TOO_SHORT:
+    case errorMessages.VALUE_IS_TOO_SHORT:
       errorMessage = "Entered value is short";
       break;
-    case erroMessage.SHOULD_BE_NUMBER:
-      errorMessage = "The field should contain just numbers";
+    case errorMessages.PHONE_IS_NOT_VALID:
+      errorMessage = "Phone is not valid";
       break;
-      default:
-      errorMessage = "The field is wrong"
+    default:
+      errorMessage = "The field is wrong";
   }
   nameHelpElement.textContent = errorMessage;
-  nameHelpElement.classList.add("helper-text")
+  nameHelpElement.classList.add("helper-text");
 };
 
-// refs.firstName.addEventListener("input", handleInput);
-// refs.lastName.addEventListener("input", handleInput);
-// refs.email.addEventListener("input", handleInput);
+const disableHelperText = e => {
+  const name = e.target.name;
+  const nameHelpElement = document.getElementById(`${name}Help`);
+  nameHelpElement.textContent = "";
+  nameHelpElement.classList.remove("helper-text");
+};
+
+refs.firstName.addEventListener("focus", disableHelperText);
+refs.lastName.addEventListener("focus", disableHelperText);
+refs.email.addEventListener("focus", disableHelperText);
+refs.phone.addEventListener("focus", disableHelperText);
 refs.form.addEventListener("submit", onSubmit);

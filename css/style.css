@@ -214,14 +214,14 @@ a {
 
 .helper-text {
     display: block;
-    background-color: #fff;
+    background-color: red;
     position: absolute;
-    padding: 5px;
-    border: solid 1px black;
-    bottom: -20px;
+    padding: 5px 10px;
+    bottom: -18px;
     left: 0;
     z-index: 100;
-    color: black;
+    color: white;
+    width: 250px;
 }
 
 .button--try {
