@@ -38,14 +38,13 @@ const namelValidator = (value, min) =>
   !isEmptyValidator(value) && !isShortValidator(value, min);
 
 const phoneValidator = (value, min) =>
-  !isShortValidator(value, min) &&  isNumberValidator(value)
+  !isShortValidator(value, min) && isNumberValidator(value);
 
 // MAIN FUNCTIONALITY
 
 const onSubmit = e => {
   e.preventDefault();
   const { firstName, lastName, email, phone } = e.target.elements;
-console.log(isNumberValidator(phone.value))
   const isFirstNameValid = namelValidator(firstName.value, 2);
 
   if (!isFirstNameValid) {
